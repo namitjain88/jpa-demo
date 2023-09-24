@@ -2,13 +2,32 @@ package org.learn;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.Date;
 
 public class JpaStarterMain {
 
     public static void main(String[] args) {
+
+        // Start of reading existing employee objects
+        // 1. Create entityManagerFactory for persistenceUnitName configured in persistence.xml
+        EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-test");
+
+        // 2. Create entityManager instance using the factory
+        EntityManager entityManager = entityManagerFactory.createEntityManager();
+
+        // 3. Reading an entity data from db
+        Employee employee = entityManager.find(Employee.class, 1);
+        Employee employee1 = entityManager.find(Employee.class, 2);
+        System.out.println(employee);
+        System.out.println(employee1);
+
+        // 4. Closing persistence context
+        entityManager.close();
+        entityManagerFactory.close();
+        // End of reading existing employee objects
+
+
+        /*// Start of create and persisting employee objects
         Employee employee = new Employee();
         //employee.setId(1);
         employee.setName("Foo Bar");
@@ -21,7 +40,7 @@ public class JpaStarterMain {
         employee1.setDob(new Date());
         employee1.setType(EmployeeType.FULL_TIME);
 
-        /* Steps involved in persisting an entity object to database */
+        *//* Steps involved in persisting an entity object to database *//*
         // 1. Create entityManagerFactory for persistenceUnitName configured in persistence.xml
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-test");
 
@@ -42,5 +61,6 @@ public class JpaStarterMain {
         // 6. Closing persistence context
         entityManager.close();
         entityManagerFactory.close();
+        // End of create and persisting employee objects*/
     }
 }

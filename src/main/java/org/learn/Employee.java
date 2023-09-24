@@ -23,6 +23,16 @@ public class Employee {
     @Transient
     private String debugString;
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", dob=" + dob +
+                ", type=" + type +
+                '}';
+    }
+
     public int getId() {
         return id;
     }
