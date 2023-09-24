@@ -2,13 +2,14 @@ package org.learn;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class JpaStarterMain {
 
     public static void main(String[] args) {
 
-        // Start of reading existing employee objects
+        // Start of updating existing employee object
         // 1. Create entityManagerFactory for persistenceUnitName configured in persistence.xml
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-test");
 
@@ -17,14 +18,25 @@ public class JpaStarterMain {
 
         // 3. Reading an entity data from db
         Employee employee = entityManager.find(Employee.class, 1);
-        Employee employee1 = entityManager.find(Employee.class, 2);
-        System.out.println(employee);
-        System.out.println(employee1);
 
-        // 4. Closing persistence context
+        // 4. Update the data using setter
+        employee.setType(EmployeeType.FULL_TIME);
+        System.out.println(employee);
+
+        // 5. Get and begin transaction
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+
+        // 6. Save/persist the entity
+        entityManager.persist(employee);
+
+        // 7. Commit transaction
+        transaction.commit();
+
+        // 8. Closing persistence context
         entityManager.close();
         entityManagerFactory.close();
-        // End of reading existing employee objects
+        // End of updating existing employee object
 
 
         /*// Start of create and persisting employee objects
