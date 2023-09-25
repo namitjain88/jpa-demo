@@ -20,6 +20,9 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private EmployeeType type;
 
+    @OneToOne
+    private AccessCard accessCard;
+
     @Transient
     private String debugString;
 
@@ -63,5 +66,13 @@ public class Employee {
 
     public void setType(EmployeeType type) {
         this.type = type;
+    }
+
+    public AccessCard getAccessCard() {
+        return accessCard;
+    }
+
+    public void setAccessCard(AccessCard accessCard) {
+        this.accessCard = accessCard;
     }
 }
