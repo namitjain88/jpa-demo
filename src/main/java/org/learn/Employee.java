@@ -20,7 +20,7 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private EmployeeType type;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.EAGER) // default for one-to-one
     private AccessCard accessCard;
 
     @Transient
@@ -33,6 +33,7 @@ public class Employee {
                 ", name='" + name + '\'' +
                 ", dob=" + dob +
                 ", type=" + type +
+                ", accessCard=" + accessCard +
                 '}';
     }
 

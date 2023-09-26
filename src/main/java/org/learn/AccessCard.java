@@ -21,6 +21,10 @@ public class AccessCard {
     @Column(name = "FIRMWARE_VERSION")
     private String firmwareVersion;
 
+    //accessCard is the name of variable used to declare AccessCard in Employee class
+    @OneToOne(mappedBy = "accessCard")
+    private Employee employee;
+
     public int getId() {
         return id;
     }
@@ -51,5 +55,23 @@ public class AccessCard {
 
     public void setFirmwareVersion(String firmwareVersion) {
         this.firmwareVersion = firmwareVersion;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    @Override
+    public String toString() {
+        return "AccessCard{" +
+                "id=" + id +
+                ", issuedDate=" + issuedDate +
+                ", isActive=" + isActive +
+                ", firmwareVersion='" + firmwareVersion + '\'' +
+                '}';
     }
 }
