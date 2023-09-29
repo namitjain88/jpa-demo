@@ -5,6 +5,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.util.Date;
+import java.util.List;
 
 public class JpaStarterMain {
 
@@ -24,6 +25,20 @@ public class JpaStarterMain {
         card1.setEmployee(employee);
         employee.setAccessCard(card1);
 
+        PayStub payStub1 = new PayStub();
+        payStub1.setPaystubStartDate(new Date());
+        payStub1.setPaystubEndDate(new Date());
+        payStub1.setSalary(1000.00F);
+        payStub1.setEmployee(employee);
+
+        PayStub payStub2 = new PayStub();
+        payStub2.setPaystubStartDate(new Date());
+        payStub2.setPaystubEndDate(new Date());
+        payStub2.setSalary(2000.00F);
+        payStub2.setEmployee(employee);
+
+        employee.setPayStubs(List.of(payStub1, payStub2));
+
         // 1. Create entityManagerFactory for persistenceUnitName configured in persistence.xml
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-test");
 
@@ -38,6 +53,9 @@ public class JpaStarterMain {
         entityManager.persist(employee);
 
         entityManager.persist(card1);
+
+        entityManager.persist(payStub1);
+        entityManager.persist(payStub2);
 
         // 5. Commit transaction
         transaction.commit();

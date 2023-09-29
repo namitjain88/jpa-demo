@@ -2,6 +2,7 @@ package org.learn;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "EMPLOYEE_DATA")
@@ -22,6 +23,9 @@ public class Employee {
 
     @OneToOne(fetch = FetchType.EAGER) // default for one-to-one
     private AccessCard accessCard;
+
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY) // default fetch type for @OneToMany
+    private List<PayStub> payStubs;
 
     @Transient
     private String debugString;
@@ -75,5 +79,13 @@ public class Employee {
 
     public void setAccessCard(AccessCard accessCard) {
         this.accessCard = accessCard;
+    }
+
+    public List<PayStub> getPayStubs() {
+        return payStubs;
+    }
+
+    public void setPayStubs(List<PayStub> payStubs) {
+        this.payStubs = payStubs;
     }
 }
