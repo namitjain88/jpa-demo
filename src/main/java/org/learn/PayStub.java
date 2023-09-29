@@ -20,6 +20,7 @@ public class PayStub {
     private float salary;
 
     @ManyToOne(fetch = FetchType.EAGER) // default fetch type for @ManyToOne
+    @JoinColumn(name = "emp_id")
     private Employee employee;
 
     public int getId() {
