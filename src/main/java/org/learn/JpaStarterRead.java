@@ -14,13 +14,9 @@ public class JpaStarterRead {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-test");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
-        /*System.out.println("Before fetching Employee******************");
-        Employee employee = entityManager.find(Employee.class, 1);
-        System.out.println(employee);*/
-
-        System.out.println("Before reading PayStubs from employee ******************");
-        PayStub payStub = entityManager.find(PayStub.class, 3);
-        System.out.println(payStub);
-
+        System.out.println("Before finding EmailGroup *****************");
+        EmailGroup emailGroup = entityManager.find(EmailGroup.class, 5);
+        System.out.println("Before accessing employees *****************");
+        System.out.println(emailGroup.getEmployees());
     }
 }

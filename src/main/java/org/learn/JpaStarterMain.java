@@ -39,6 +39,24 @@ public class JpaStarterMain {
 
         employee.setPayStubs(List.of(payStub1, payStub2));
 
+        // employee is part of both the groups while employee2 is part of first group
+        Employee employee2 = new Employee();
+        employee2.setName("Bar Baz");
+        employee2.setType(EmployeeType.FULL_TIME);
+
+        EmailGroup emailGroup1 = new EmailGroup();
+        emailGroup1.setName("Company water cooler discussions");
+        emailGroup1.addEmployee(employee); // associating employee to first group
+        employee.addEmailGroup(emailGroup1);
+        employee2.addEmailGroup(emailGroup1); // associating employee2 to first group only
+
+        EmailGroup emailGroup2 = new EmailGroup();
+        emailGroup2.setName("Engineering");
+        emailGroup2.addEmployee(employee2);
+        employee.addEmailGroup(emailGroup2); // associating employee to second group
+        employee2.addEmailGroup(emailGroup2);
+
+
         // 1. Create entityManagerFactory for persistenceUnitName configured in persistence.xml
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-test");
 
@@ -56,6 +74,9 @@ public class JpaStarterMain {
 
         entityManager.persist(payStub1);
         entityManager.persist(payStub2);
+
+        entityManager.persist(emailGroup1);
+        entityManager.persist(emailGroup2);
 
         // 5. Commit transaction
         transaction.commit();

@@ -1,6 +1,7 @@
 package org.learn;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -26,6 +27,10 @@ public class Employee {
 
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY) // default fetch type for @OneToMany
     private List<PayStub> payStubs;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    // default is LAZY; but in our use case Employee may not have that many emailGroups, so it's ok to fetch eagerly
+    private List<EmailGroup> emailGroups = new ArrayList<>();
 
     @Transient
     private String debugString;
@@ -87,5 +92,18 @@ public class Employee {
 
     public void setPayStubs(List<PayStub> payStubs) {
         this.payStubs = payStubs;
+    }
+
+    public List<EmailGroup> getEmailGroups() {
+        return emailGroups;
+    }
+
+    public void setEmailGroups(List<EmailGroup> emailGroups) {
+        this.emailGroups = emailGroups;
+    }
+
+    // Helper method to add emailGroup to the emailGroups list at the time of setting other member variables
+    public void addEmailGroup(EmailGroup emailGroup) {
+        this.emailGroups.add(emailGroup);
     }
 }
