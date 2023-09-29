@@ -42,6 +42,7 @@ public class JpaStarterMain {
         // employee is part of both the groups while employee2 is part of first group
         Employee employee2 = new Employee();
         employee2.setName("Bar Baz");
+        employee2.setDob(new Date());
         employee2.setType(EmployeeType.FULL_TIME);
 
         EmailGroup emailGroup1 = new EmailGroup();
@@ -54,7 +55,6 @@ public class JpaStarterMain {
         emailGroup2.setName("Engineering");
         emailGroup2.addEmployee(employee2);
         employee.addEmailGroup(emailGroup2); // associating employee to second group
-        employee2.addEmailGroup(emailGroup2);
 
 
         // 1. Create entityManagerFactory for persistenceUnitName configured in persistence.xml
@@ -69,6 +69,7 @@ public class JpaStarterMain {
 
         // 4. Save/persist the entity
         entityManager.persist(employee);
+        entityManager.persist(employee2);
 
         entityManager.persist(card1);
 
