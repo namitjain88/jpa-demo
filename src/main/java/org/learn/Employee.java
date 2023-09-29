@@ -28,8 +28,10 @@ public class Employee {
     @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY) // default fetch type for @OneToMany
     private List<PayStub> payStubs;
 
-    @ManyToMany(fetch = FetchType.EAGER)
     // default is LAZY; but in our use case Employee may not have that many emailGroups, so it's ok to fetch eagerly
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "EMAIL_GROUP_SUBSCRIPTIONS", joinColumns = @JoinColumn(name = "EMP_ID"),
+            inverseJoinColumns = @JoinColumn(name = "SUBSCRIPTION_ID"))
     private List<EmailGroup> emailGroups = new ArrayList<>();
 
     @Transient
