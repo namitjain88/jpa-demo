@@ -22,10 +22,11 @@ public class Employee {
     @Enumerated(EnumType.STRING)
     private EmployeeType type;
 
-    @OneToOne(fetch = FetchType.EAGER) // default for one-to-one
+    @OneToOne(cascade = CascadeType.REMOVE, fetch = FetchType.EAGER) // default for one-to-one
     private AccessCard accessCard;
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY) // default fetch type for @OneToMany
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    // default fetch type for @OneToMany
     private List<PayStub> payStubs;
 
     // default is LAZY; but in our use case Employee may not have that many emailGroups, so it's ok to fetch eagerly
