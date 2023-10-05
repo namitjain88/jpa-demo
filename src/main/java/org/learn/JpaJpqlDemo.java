@@ -12,8 +12,15 @@ public class JpaJpqlDemo {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("persistence-test");
         EntityManager entityManager = entityManagerFactory.createEntityManager();
 
+        // Explicit JOIN: Fetch all employees with active access card using JOIN
+        /*TypedQuery<Employee> query = entityManager.createQuery(
+                "SELECT emp FROM Employee emp JOIN AccessCard card ON emp.accessCard.id = card.id",
+                Employee.class
+        );*/
+
+        // Implicit JOIN due to @OneToOne: Fetch all employees with active access card
         TypedQuery<Employee> query = entityManager.createQuery(
-                "SELECT emp FROM Employee emp WHERE emp.name LIKE '%Bar%' AND emp.id BETWEEN 1 AND 2 ORDER BY emp.type DESC",
+                "SELECT emp FROM Employee emp WHERE emp.accessCard.isActive = true",
                 Employee.class
         );
         List<Employee> employees = query.getResultList();
