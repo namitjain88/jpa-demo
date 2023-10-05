@@ -39,6 +39,14 @@ public class JpaJpqlDemo {
         List<Object[]> empCardIssuedAtQueryResultList = empCardIssuedAtQuery.getResultList();
         empCardIssuedAtQueryResultList.forEach(e -> System.out.println(e[0] + ", " + e[1]));
 
+        // Binding input params e.g. fetch employees having name Bar
+        String searchTxt = "%Bar%";
+        TypedQuery<Employee> empNameSearchQuery = entityManager.createQuery("SELECT e FROM Employee e WHERE e.name LIKE :searchText", Employee.class);
+        empNameSearchQuery.setParameter("searchText", searchTxt);
+
+        List<Employee> empHavingBarInTheirName = empNameSearchQuery.getResultList();
+        empHavingBarInTheirName.forEach(System.out::println);
+
         entityManager.close();
         entityManagerFactory.close();
     }
