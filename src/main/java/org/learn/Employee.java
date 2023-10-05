@@ -7,6 +7,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "EMPLOYEE_DATA")
+@NamedQuery(name = "emp_name_desc", query = "SELECT e FROM Employee e ORDER BY e.name DESC")
 public class Employee {
 
     @Id

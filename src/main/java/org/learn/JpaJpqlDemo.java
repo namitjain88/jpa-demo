@@ -47,6 +47,10 @@ public class JpaJpqlDemo {
         List<Employee> empHavingBarInTheirName = empNameSearchQuery.getResultList();
         empHavingBarInTheirName.forEach(System.out::println);
 
+        TypedQuery<Employee> empNameDescQuery = entityManager.createNamedQuery("emp_name_desc", Employee.class);
+        List<Employee> empNameDescQueryResultList = empNameDescQuery.getResultList();
+        empNameDescQueryResultList.forEach(System.out::println);
+
         entityManager.close();
         entityManagerFactory.close();
     }
